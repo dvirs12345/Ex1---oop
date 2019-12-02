@@ -8,6 +8,7 @@ public class MonomTest2 {
 
 	@Test
 	public void testGetComp() {
+		System.out.println("");
 		fail("Not yet implemented");
 	}
 
