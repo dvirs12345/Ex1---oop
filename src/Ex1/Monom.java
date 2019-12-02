@@ -181,8 +181,8 @@ public class Monom implements function{
 	 */
 	public Boolean equals(Object m1) {
 		if (m1 instanceof Monom ) {
-			if ( this._coefficient >=  (Monom m1)._coefficient-EPSILON && this._coefficient <=  (Monom m1)._coefficient+EPSILON 
-			    && this._power == (Monom m1)._power)
+			if ( this._coefficient >= ((Monom) m1)._coefficient-EPSILON && this._coefficient <= ((Monom) m1)._coefficient+EPSILON 
+			    && this._power == ((Monom) m1)._power)
 				return true;
 			return false;
 		} else {
