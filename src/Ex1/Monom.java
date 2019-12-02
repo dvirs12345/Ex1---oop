@@ -179,22 +179,24 @@ public class Monom implements function{
 	/**
 	 * @return if this monom equal to monom m1.
 	 */
-	public Boolean equals(Monom m1) {
-		if ( this._coefficient >=  m1._coefficient-EPSILON && this._coefficient <=  m1._coefficient+EPSILON 
-		    && this._power == m1._power)
-			return true;
-		return false;
+	public Boolean equals(Object m1) {
+		if (m1 instanceof Monom ) {
+			if ( this._coefficient >=  (Monom m1)._coefficient-EPSILON && this._coefficient <=  (Monom m1)._coefficient+EPSILON 
+			    && this._power == (Monom m1)._power)
+				return true;
+			return false;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Monom(s);
 	}
 
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Monom(this._coefficient, this._power);
 	}
 }
