@@ -1,6 +1,7 @@
 package Ex1;
 
 import java.util.Comparator;
+
 public class Monom_Comperator implements Comparator<Monom> {
 
 	public Monom_Comperator() {;}
