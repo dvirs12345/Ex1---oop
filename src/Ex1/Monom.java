@@ -179,7 +179,7 @@ public class Monom implements function{
 	/**
 	 * @return if this monom equal to monom m1.
 	 */
-	public Boolean equals(Object m1) {
+	public boolean equals(Object m1) {
 		if (m1 instanceof Monom ) {
 			if ( this._coefficient >= ((Monom) m1)._coefficient-EPSILON && this._coefficient <= ((Monom) m1)._coefficient+EPSILON 
 			    && this._power == ((Monom) m1)._power)
