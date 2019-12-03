@@ -3,8 +3,8 @@ package Ex1;
 import com.sun.org.apache.xpath.internal.operations.Operation;
 
 public class ComplexFunction implements complex_function{
-	ComplexFunction left; 
-	ComplexFunction right;
+	function left; 
+	function right;
 	Operation op;
 	
 	public ComplexFunction(ComplexFunction f) {
@@ -15,8 +15,34 @@ public class ComplexFunction implements complex_function{
 	
 	@Override
 	public double f(double x) {
-		// TODO Auto-generated method stub
-		return 0;
+		switch (this.Operation)
+		{ 
+		case Plus: 
+			return (this.left.f(x)+this.right.f(x)); 
+			break;
+		case Times: 
+			return (this.left.f(x)*this.right.f(x));
+			break;
+		case Divid: 
+			return (this.left.f(x)/this.right.f(x));
+			break;
+		case Max: 
+			return Math.max(this.left.f(x),this.right.f(x));
+			break;
+		case Min: 
+			return Math.min(this.left.f(x),this.right.f(x));
+			break;
+		case Comp: 
+			return (this.left.f(this.right.f(x)));
+			break;
+		case None: 
+			return this.left.f(x);// TODO Auto-generated method stub
+			break;
+		case Error:
+		default: 
+			return null; 
+			break;
+		}
 	}
 
 	@Override
