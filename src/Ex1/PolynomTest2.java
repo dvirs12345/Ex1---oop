@@ -1,11 +1,14 @@
 package Ex1;
 
 import static org.junit.Assert.*;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 
 import org.junit.Test;
+
+import myMath.Monom;
+import myMath.Polynom;
 
 public class PolynomTest2 {
 
@@ -15,18 +18,11 @@ public class PolynomTest2 {
 		Polynom p = new Polynom();
 		p.add(Monom.ZERO);
 		Polynom p1 = new Polynom("0");
-		System.out.println("The polynom p is: "+p+" size= "+p.size());
-		System.out.println("The polynom p1 is: "+p1+" size= "+p1.size());
-		boolean b = (p.equals(p1));
-		System.out.println(p+" = "+p1+" : "+b);
-		if(!b)
-			fail("Not equal");
-		Polynom p2 = new Polynom("0");
-		Polynom p3 = new Polynom("x+5X^2");
-		b = (p2.toString() == p3.toString());
-		System.out.println(p+" = "+p1+" : "+b);
-		if(b)
-			fail("Not equal");
+		System.out.println("The polynom p is: "+p);
+		System.out.println("The polynom p1 is: "+p1);
+		assertEquals(p,p1);
+		Polynom p2 = new Polynom("x+5X^2");
+		assertNotEquals(p2,p1);
 	}
 
 	@Test
