@@ -152,23 +152,27 @@ public class Polynom implements Polynom_able {
 	}
 	
 	@Override
-	public boolean equals(Polynom_able p1) {
-		int p1Size =0;
-		Iterator<Monom> itrP1 = p1.iteretor();
-		while (itrP1.hasNext()) {
-			itrP1.next();
-			p1Size++;
-		}
-		if(this.size() != p1Size)
-			return false;
-		Iterator<Monom> itr = p1.iteretor(); 
-		while (itr.hasNext()) {
-			Monom mapMon = itr.next(); 
-			if ( !(mapMon.equals( this.monomsHash.get(mapMon.get_power() ) ) ) ){
-				return false;
+	public boolean equals(Object p1) {
+		if (p1 instanceof Polynom_able ){
+			int p1Size = 0;
+			Iterator<Monom> itrP1 = p1.iteretor();
+			while (itrP1.hasNext()) {
+				itrP1.next();
+				p1Size++;
 			}
+			if(this.size() != p1Size)
+				return false;
+			Iterator<Monom> itr = p1.iteretor(); 
+			while (itr.hasNext()) {
+				Monom mapMon = itr.next(); 
+				if ( !(mapMon.equals( this.monomsHash.get(mapMon.get_power() ) ) ) ){
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
 		}
-		return true;
 	}
 
 	@Override
