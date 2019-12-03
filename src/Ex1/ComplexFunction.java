@@ -48,6 +48,24 @@ public class ComplexFunction implements complex_function{
 	@Override
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
+		if(s.length() >= 9 && s.substring(0, 5) == "plus(" 
+				           && s.charAt(s.length()-1) == ')') {
+			int num = 0; // the number of open ().
+			for(int i = 5; i<s.length()-2; i++) {
+				if (s.charAt(i) == '(') {
+					num++ ;
+				} else if (s.charAt(i) == '(') {
+					num-- ;
+				} else if (s.charAt(i) == ',' && num == 0) {
+					ComplexFunction cf = new ComplexFunction();
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+					cf.op = Operation.Plus;
+					return cf;
+				}
+			}
+		}
+			
 		return null;
 	}
 
