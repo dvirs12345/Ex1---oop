@@ -7,6 +7,8 @@ public class ComplexFunction implements complex_function{
 	function right;
 	Operation op;
 
+	public ComplexFunction() {;}
+	
 	public ComplexFunction(ComplexFunction f) {
 		this.left = f.left;
 		this.right = f.right;
@@ -47,6 +49,12 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function initFromString(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == ' ') {
+				s = s.substring(0, i)+s.substring(i+1, s.length());
+				i--;
+			}
+		}
 		if(s.length() >= 9 && s.substring(0, 5) == "plus(" 
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open () מספר הסוגריים הפתוחים.

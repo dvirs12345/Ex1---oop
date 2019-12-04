@@ -42,6 +42,9 @@ public class Polynom implements Polynom_able {
 		try {
 			this.monomsHash = new HashMap<Integer, Monom>();
 			int help = 0;
+			if(s.length() >= 2 && s.charAt(0) == '+') {
+				s = s.substring(1);
+			}
 			for (int i = 0; i < s.length(); i++) {  
 				if(i == s.length()-1)
 					this.add(new Monom((String) s.subSequence(help,i+1)));
@@ -222,7 +225,7 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public double area(double x0, double x1, double eps) {
-		if(x1 >= x0)
+		if(x1 <= x0)
 			return 0.;
 		double area = 0.0;
 		while(x0+eps <= x1) {
