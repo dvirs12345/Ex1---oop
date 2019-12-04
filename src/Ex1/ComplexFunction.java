@@ -19,29 +19,29 @@ public class ComplexFunction implements complex_function{
 		{ 
 		case Plus: 
 			return (this.left.f(x)+this.right.f(x)); 
-			break;
+			//			break;
 		case Times: 
 			return (this.left.f(x)*this.right.f(x));
-			break;
+			//			break;
 		case Divid: 
 			return (this.left.f(x)/this.right.f(x));
-			break;
+			//			break;
 		case Max: 
 			return Math.max(this.left.f(x),this.right.f(x));
-			break;
+			//			break;
 		case Min: 
 			return Math.min(this.left.f(x),this.right.f(x));
-			break;
+			//			break;
 		case Comp: 
 			return (this.left.f(this.right.f(x)));
-			break;
+			//			break;
 		case None: 
 			return this.left.f(x);// TODO Auto-generated method stub
-			break;
+			//			break;
 		case Error:
 		default: 
 			return null; 
-			break;
+			//			break;
 		}
 	}
 
@@ -49,7 +49,7 @@ public class ComplexFunction implements complex_function{
 	public function initFromString(String s) {
 		if(s.length() >= 9 && s.substring(0, 5) == "plus(" 
 				&& s.charAt(s.length()-1) == ')') {
-			int num = 0; // the number of open ().
+			int num = 0; // the number of open () מספר הסוגריים הפתוחים.
 			for(int i = 5; i<s.length()-2; i++) {
 				if (s.charAt(i) == '(') {
 					num++ ;
@@ -57,9 +57,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-							cf.op = Operation.Plus;
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Operation.Plus;
 					return cf;
 				}
 			}
@@ -73,9 +73,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-							cf.op = Operation.Times;
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Operation.Times;
 					return cf;
 				}
 			}
@@ -89,9 +89,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-							cf.op = Operation.Divid;
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Operation.Divid;
 					return cf;
 				}
 			}
@@ -105,9 +105,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-							cf.op = Operation.Max;
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Operation.Max;
 					return cf;
 				}
 			}
@@ -121,9 +121,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-							cf.op = Operation.Min;
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
+					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Operation.Min;
 					return cf;
 				}
 			}
