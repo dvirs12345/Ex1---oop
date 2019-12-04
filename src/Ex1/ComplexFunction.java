@@ -6,13 +6,13 @@ public class ComplexFunction implements complex_function{
 	function left; 
 	function right;
 	Operation op;
-	
+
 	public ComplexFunction(ComplexFunction f) {
 		this.left = f.left;
 		this.right = f.right;
 		this.op = f.op;
 	}
-	
+
 	@Override
 	public double f(double x) {
 		switch (this.Operation)
@@ -47,26 +47,90 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
 		if(s.length() >= 9 && s.substring(0, 5) == "plus(" 
-				           && s.charAt(s.length()-1) == ')') {
+				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open ().
 			for(int i = 5; i<s.length()-2; i++) {
 				if (s.charAt(i) == '(') {
 					num++ ;
-				} else if (s.charAt(i) == '(') {
+				} else if (s.charAt(i) == ')') {
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
 					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
-					cf.op = Operation.Plus;
+							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+							cf.op = Operation.Plus;
 					return cf;
 				}
 			}
+		} else if(s.length() >= 8 && s.substring(0, 4) == "mul(" 
+				&& s.charAt(s.length()-1) == ')') {
+			int num = 0; // the number of open ().
+			for(int i = 4; i<s.length()-2; i++) {
+				if (s.charAt(i) == '(') {
+					num++ ;
+				} else if (s.charAt(i) == ')') {
+					num-- ;
+				} else if (s.charAt(i) == ',' && num == 0) {
+					ComplexFunction cf = new ComplexFunction();
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
+							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+							cf.op = Operation.Times;
+					return cf;
+				}
+			}
+		}  else if(s.length() >= 8 && s.substring(0, 4) == "div(" 
+				&& s.charAt(s.length()-1) == ')') {
+			int num = 0; // the number of open ().
+			for(int i = 4; i<s.length()-2; i++) {
+				if (s.charAt(i) == '(') {
+					num++ ;
+				} else if (s.charAt(i) == ')') {
+					num-- ;
+				} else if (s.charAt(i) == ',' && num == 0) {
+					ComplexFunction cf = new ComplexFunction();
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
+							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+							cf.op = Operation.Divid;
+					return cf;
+				}
+			}
+		} else if(s.length() >= 8 && s.substring(0, 4) == "max(" 
+				&& s.charAt(s.length()-1) == ')') {
+			int num = 0; // the number of open ().
+			for(int i = 4; i<s.length()-2; i++) {
+				if (s.charAt(i) == '(') {
+					num++ ;
+				} else if (s.charAt(i) == ')') {
+					num-- ;
+				} else if (s.charAt(i) == ',' && num == 0) {
+					ComplexFunction cf = new ComplexFunction();
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
+							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+							cf.op = Operation.Max;
+					return cf;
+				}
+			}
+		} else if(s.length() >= 8 && s.substring(0, 4) == "min(" 
+				&& s.charAt(s.length()-1) == ')') {
+			int num = 0; // the number of open ().
+			for(int i = 4; i<s.length()-2; i++) {
+				if (s.charAt(i) == '(') {
+					num++ ;
+				} else if (s.charAt(i) == ')') {
+					num-- ;
+				} else if (s.charAt(i) == ',' && num == 0) {
+					ComplexFunction cf = new ComplexFunction();
+					cf.left = ComplexFunction.initFromString(s.substring(5, i-1))
+							cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2))
+							cf.op = Operation.Min;
+					return cf;
+				}
+			}
+		} else {
+			return new Polynom(s);
 		}
-			
-		return null;
+
 	}
 
 	@Override
