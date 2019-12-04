@@ -55,7 +55,7 @@ public class ComplexFunction implements complex_function{
 				i--;
 			}
 		}
-		if(s.length() >= 9 && s.substring(0, 5) == "plus(" 
+		if(s.length() >= 9 && s.substring(0, 5).equals("plus(" )
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open () מספר הסוגריים הפתוחים.
 			for(int i = 5; i<s.length()-2; i++) {
@@ -71,7 +71,7 @@ public class ComplexFunction implements complex_function{
 					return cf;
 				}
 			}
-		} else if(s.length() >= 8 && s.substring(0, 4) == "mul(" 
+		} else if(s.length() >= 8 && s.substring(0, 4).equals( "mul(") 
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open ().
 			for(int i = 4; i<s.length()-2; i++) {
@@ -87,7 +87,7 @@ public class ComplexFunction implements complex_function{
 					return cf;
 				}
 			}
-		}  else if(s.length() >= 8 && s.substring(0, 4) == "div(" 
+		}  else if(s.length() >= 8 && s.substring(0, 4).equals("div(" )
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open ().
 			for(int i = 4; i<s.length()-2; i++) {
@@ -103,7 +103,7 @@ public class ComplexFunction implements complex_function{
 					return cf;
 				}
 			}
-		} else if(s.length() >= 8 && s.substring(0, 4) == "max(" 
+		} else if(s.length() >= 8 && s.substring(0, 4).equals("max(" )
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open ().
 			for(int i = 4; i<s.length()-2; i++) {
@@ -119,7 +119,7 @@ public class ComplexFunction implements complex_function{
 					return cf;
 				}
 			}
-		} else if(s.length() >= 8 && s.substring(0, 4) == "min(" 
+		} else if(s.length() >= 8 && s.substring(0, 4).equals("min(" )
 				&& s.charAt(s.length()-1) == ')') {
 			int num = 0; // the number of open ().
 			for(int i = 4; i<s.length()-2; i++) {
