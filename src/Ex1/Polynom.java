@@ -42,6 +42,9 @@ public class Polynom implements Polynom_able {
 		try {
 			this.monomsHash = new HashMap<Integer, Monom>();
 			int help = 0;
+			if(s.length() >= 2 && s.charAt(0) == '+') {
+				s = s.substring(1);
+			}
 			for (int i = 0; i < s.length(); i++) {  
 				if(i == s.length()-1)
 					this.add(new Monom((String) s.subSequence(help,i+1)));
@@ -152,23 +155,27 @@ public class Polynom implements Polynom_able {
 	}
 	
 	@Override
-	public boolean equals(Polynom_able p1) {
-		int p1Size =0;
-		Iterator<Monom> itrP1 = p1.iteretor();
-		while (itrP1.hasNext()) {
-			itrP1.next();
-			p1Size++;
-		}
-		if(this.size() != p1Size)
-			return false;
-		Iterator<Monom> itr = p1.iteretor(); 
-		while (itr.hasNext()) {
-			Monom mapMon = itr.next(); 
-			if ( !(mapMon.equals( this.monomsHash.get(mapMon.get_power() ) ) ) ){
-				return false;
+	public boolean equals(Object p1) {
+		if (p1 instanceof Polynom_able ){
+			int p1Size = 0;
+			Iterator<Monom> itrP1 = p1.iteretor();
+			while (itrP1.hasNext()) {
+				itrP1.next();
+				p1Size++;
 			}
+			if(this.size() != p1Size)
+				return false;
+			Iterator<Monom> itr = p1.iteretor(); 
+			while (itr.hasNext()) {
+				Monom mapMon = itr.next(); 
+				if ( !(mapMon.equals( this.monomsHash.get(mapMon.get_power() ) ) ) ){
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
 		}
-		return true;
 	}
 
 	@Override
@@ -218,7 +225,7 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public double area(double x0, double x1, double eps) {
-		if(x1 >= x0)
+		if(x1 <= x0)
 			return 0.;
 		double area = 0.0;
 		while(x0+eps <= x1) {
