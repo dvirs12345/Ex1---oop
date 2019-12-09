@@ -79,6 +79,7 @@ public class MonomTest2 {
 	@Test
 	public void testMonomString() 
 	{
+		System.out.println("*****TestMonomString*****");
 		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
 		double[] anscoef = {0,2,1,0,1,-1};
 		int[] anspow = {0,0,2,0,0,1};
@@ -152,13 +153,23 @@ public class MonomTest2 {
 	@Test
 	public void testAdd()
 	{
+		System.out.println("*****TestAdd*****");
 		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
 		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x^0"),new Monom("-9x")};
-		Monom[] ans = {new Monom("2x^2"), new Monom("4"),new Monom("10x^2"), new Monom("0"),new Monom("x^0"),new Monom("-10x")};
+		Monom[] ans = {new Monom("2"), new Monom("4"),new Monom("10x^2"), new Monom("0"),new Monom("2x^0"),new Monom("-10x")};
 		for (int i = 0; i < ans.length; i++)
 		{
 			ms[i].add(toadd[i]);
 			assertEquals(ms[i], ans[i]);
+		}
+		try 
+		{
+			ms[0].add(toadd[2]);
+			System.out.println("No Error (Bad)");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error when trying to add Monoms with non equal powers" );
 		}
 	}
 
@@ -168,28 +179,50 @@ public class MonomTest2 {
 	}
 
 	@Test
-	public void testMultiply() {
-		fail("Not yet implemented");
+	public void testMultiply() 
+	{
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x"),new Monom("-9x")};
+		Monom[] ans = {new Monom("0"), new Monom("4"),new Monom("9x^4"), new Monom("0"),new Monom("x^2"),new Monom("9x^2")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			ms[i].multiply(toadd[i]);
+			assertEquals(ms[i], ans[i]);
+		}
 	}
 
 	@Test
-	public void testMultiplyAndReturn() {
-		fail("Not yet implemented");
+	public void testMultiplyAndReturn()
+	{
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x"),new Monom("-9x")};
+		Monom[] ans = {new Monom("0"), new Monom("4"),new Monom("9x^4"), new Monom("0"),new Monom("x^2"),new Monom("9x^2")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].multiplyAndReturn(toadd[i]), ans[i]);
+		}
 	}
 
 	@Test
-	public void testInitFromString() {
-		fail("Not yet implemented");
+	public void testInitFromString()
+	{
+		Monom m = new Monom("5x");
+		function f = m.initFromString(m.toString());
+		assertEquals(m, f);
 	}
 
 	@Test
-	public void testCopy() {
-		fail("Not yet implemented");
+	public void testCopy()
+	{
+		Monom m = new Monom("2x^2");
+		function f = m.copy();
+		assertEquals(m, f);
 	}
 
 	@Test
-	public void testEqualsObject() {
-		fail("Not yet implemented");
+	public void testEqualsObject()
+	{
+		
 	}
 
 }
