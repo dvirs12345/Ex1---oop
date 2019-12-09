@@ -7,9 +7,6 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import myMath.Monom;
-import myMath.Polynom;
-
 public class PolynomTest2 {
 
 	@Test
@@ -66,8 +63,7 @@ public class PolynomTest2 {
 		p3.add(new Monom("X^5"));
 		System.out.println("The polynom p3 is: "+p3);
 	}
-
-
+	
 	@Test
 	public void testF() {
 		Polynom p1 = new Polynom("x");
@@ -78,8 +74,7 @@ public class PolynomTest2 {
 			return;
 		fail("not good f(x)"); 
 	}
-
-
+	
 	@Test
 	public void testMultiplyPolynom_able() {
 		System.out.println("\ntestMultiplyPolynom_able: ");
@@ -94,7 +89,7 @@ public class PolynomTest2 {
 		if(!p.equals(p2))
 			fail("Not true"); 
 	}
-
+	
 	@Test
 	public void testEqualsPolynom_able() {
 		System.out.println("\ntestEqualsPolynom_able(): ");
@@ -120,6 +115,7 @@ public class PolynomTest2 {
 		if (!p3.equals(p6))
 			fail(p3.toString()+" != "+p5.toString());
 	}
+	
 	@Test
 	public void testRoot() {
 		System.out.println("\ntestRoot(): ");
@@ -150,7 +146,7 @@ public class PolynomTest2 {
 		if(  !( p.derivative().equals(new Polynom("121x^10")))  )
 			fail("Not equals");
 	}
-
+	
 	@Test
 	public void testArea() {
 		System.out.println("\ntestArea(): ");
@@ -160,7 +156,7 @@ public class PolynomTest2 {
 		double area = p.area(-5, 0, 0.00001);
 		System.out.println(area);
 	}
-
+	
 	@Test
 	public void testSubstract() {
 		System.out.println("\ntestSubstract(): ");
@@ -204,7 +200,7 @@ public class PolynomTest2 {
 			System.out.println(mapMon);
 		}
 	}
-
+	
 	@Test
 	public void testMultiplyMonom() {
 		System.out.println("\ntestMultiplyMonom(): ");
@@ -226,5 +222,5 @@ public class PolynomTest2 {
 		if(!p.isZero() || !p1.equals(p2))
 			fail(""); 
 	}
-
+	
 }

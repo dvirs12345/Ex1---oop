@@ -158,14 +158,14 @@ public class Polynom implements Polynom_able {
 	public boolean equals(Object p1) {
 		if (p1 instanceof Polynom_able ){
 			int p1Size = 0;
-			Iterator<Monom> itrP1 = p1.iteretor();
+			Iterator<Monom> itrP1 = ((Polynom_able) p1).iteretor();
 			while (itrP1.hasNext()) {
 				itrP1.next();
 				p1Size++;
 			}
 			if(this.size() != p1Size)
 				return false;
-			Iterator<Monom> itr = p1.iteretor(); 
+			Iterator<Monom> itr = ((Polynom_able) p1).iteretor(); 
 			while (itr.hasNext()) {
 				Monom mapMon = itr.next(); 
 				if ( !(mapMon.equals( this.monomsHash.get(mapMon.get_power() ) ) ) ){
@@ -225,9 +225,9 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public double area(double x0, double x1, double eps) {
-		if(x1 <= x0)
-			return 0.;
 		double area = 0.0;
+		if(x1 <= x0)
+			return area;
 		while(x0+eps <= x1) {
 			if(this.f(x0+eps)>0 && this.f(x0+eps)>0)
 				area += (eps * ( this.f(x0+eps) + this.f(x0+eps) ) / 2);
@@ -275,7 +275,6 @@ public class Polynom implements Polynom_able {
 		});
 		return p;
 	}
-	
 	
 	@Override
 	public function initFromString(String s) {
