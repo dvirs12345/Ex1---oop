@@ -1,92 +1,91 @@
 
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Functions_GUI implements functions {
-	private ArrayList<functions> arr;
+	private LinkedList<function> arr;
 	
 	public Functions_GUI() {
-		this.arr = new ArrayList<functions>();
+		this.arr = new LinkedList<function>();
 	}
 	
 	@Override
 	public boolean add(function arg0) {
-		this.arr.
-		return false;
-	}
-
-	@Override
-	public boolean addAll(Collection<? extends function> arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
+		try {
+			this.arr.add(arg0); 
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 		
 	}
 
 	@Override
+	public boolean addAll(Collection<? extends function> arg0) {
+		try {
+			this.arr.addAll(arg0); 
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void clear() {
+		this.arr.clear();
+	}
+
+	@Override
 	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.contains(arg0);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.containsAll(arg0);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.isEmpty();
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.arr.iterator();
 	}
 
 	@Override
 	public boolean remove(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.remove(arg0);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.removeAll(arg0);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.arr.retainAll(arg0);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.arr.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.arr.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.arr.toArray(arg0);
 	}
 
 	@Override
