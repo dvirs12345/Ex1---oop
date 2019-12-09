@@ -1,13 +1,19 @@
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class Functions_GUI implements functions {
-
+	private ArrayList<functions> arr;
+	
+	public Functions_GUI() {
+		this.arr = new ArrayList<functions>();
+	}
+	
 	@Override
 	public boolean add(function arg0) {
-		// TODO Auto-generated method stub
+		this.arr.
 		return false;
 	}
 
