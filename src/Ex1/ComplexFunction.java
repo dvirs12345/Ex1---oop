@@ -5,9 +5,10 @@ import com.sun.org.apache.xpath.internal.operations.Operation;
 public class ComplexFunction implements complex_function{
 	function left; 
 	function right;
-	Operation op;
+	Ex1.Operation op;
 
 	public ComplexFunction() {;}
+		
 	
 	public ComplexFunction(ComplexFunction f) {
 		this.left = f.left;
@@ -17,7 +18,7 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public double f(double x) {
-		switch (this.Operation)
+		switch (this.op)
 		{ 
 		case Plus: 
 			return (this.left.f(x)+this.right.f(x)); 
@@ -42,7 +43,7 @@ public class ComplexFunction implements complex_function{
 			//			break;
 		case Error:
 		default: 
-			return null; 
+			return (Double) null; 
 			//			break;
 		}
 	}
@@ -65,9 +66,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
-					cf.op = Operation.Plus;
+					cf.left = cf.initFromString(s.substring(5, i-1));
+					cf.right = cf.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Plus;
 					return cf;
 				}
 			}
@@ -81,9 +82,10 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
-					cf.op = Operation.Times;
+					cf.left = cf.initFromString(s.substring(5, i-1));
+					cf.right = cf.initFromString(s.substring(i+1, s.length()-2));
+					Operation op =  Operation.Times;
+					cf.op = op;
 					return cf;
 				}
 			}
@@ -97,9 +99,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
-					cf.op = Operation.Divid;
+					cf.left = cf.initFromString(s.substring(5, i-1));
+					cf.right = cf.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Divid;
 					return cf;
 				}
 			}
@@ -113,9 +115,9 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
-					cf.op = Operation.Max;
+					cf.left = cf.initFromString(s.substring(5, i-1));
+					cf.right = cf.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Max;
 					return cf;
 				}
 			}
@@ -129,15 +131,16 @@ public class ComplexFunction implements complex_function{
 					num-- ;
 				} else if (s.charAt(i) == ',' && num == 0) {
 					ComplexFunction cf = new ComplexFunction();
-					cf.left = ComplexFunction.initFromString(s.substring(5, i-1));
-					cf.right = ComplexFunction.initFromString(s.substring(i+1, s.length()-2));
-					cf.op = Operation.Min;
+					cf.left = cf.initFromString(s.substring(5, i-1));
+					cf.right = cf.initFromString(s.substring(i+1, s.length()-2));
+					cf.op = Min;
 					return cf;
 				}
 			}
 		} else {
 			return new Polynom(s);
 		}
+		return null;
 
 	}
 
@@ -148,56 +151,44 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public void plus(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.plus;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Plus;
 	}
 
 	@Override
 	public void mul(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.Times;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Times;
 	}
 
 	@Override
 	public void div(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.Divid;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Divid;
 	}
 
 	@Override
 	public void max(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.Max;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Max;
 	}
 
 	@Override
 	public void min(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.Min;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Min;
 	}
 
 	@Override
 	public void comp(function f1) {
-		ComplexFunction temp = new ComplexFunction();
-		temp.left = new ComplexFunction(this);
-		temp.right = f1;
-		temp.op = Operation.Comp;
-		this = temp;
+		this.left = new ComplexFunction(this);
+		this.right = f1;
+		this.op = Comp;
 	}
 
 	@Override
@@ -211,7 +202,7 @@ public class ComplexFunction implements complex_function{
 	}
 
 	@Override
-	public Operation getOp() {
+	public Ex1.Operation getOp() {
 		return this.op;
 	}
 
