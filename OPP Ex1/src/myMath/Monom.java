@@ -1,8 +1,6 @@
-
 package myMath;
 
 import java.util.Comparator;
-
 /**
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 
@@ -10,7 +8,6 @@ import java.util.Comparator;
  * @author Boaz
  *
  */
-@SuppressWarnings("serial")
 public class Monom implements function{
 	public static final Monom ZERO = new Monom(0,0);
 	public static final Monom MINUS1 = new Monom(-1,0);
@@ -76,7 +73,8 @@ public class Monom implements function{
 			throw new RuntimeException("Got null string: "+s);
 		if( s.length()==0 ) 
 			throw new RuntimeException("Got string without length: "+s);
-		
+		if(s == "-")
+			throw new RuntimeException("Got the illegal '-' please enter a valid monom next time. ");
 		int coefficientlength = 0;
 		double coefficient;
 		int power;

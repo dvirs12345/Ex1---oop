@@ -14,7 +14,6 @@ import java.util.TreeMap;
  * @author Eli Ruvinov
  *
  */
-@SuppressWarnings("serial")
 public class Polynom implements Polynom_able {
 	private HashMap <Integer, Monom> monomsHash;
 	/**
@@ -39,13 +38,16 @@ public class Polynom implements Polynom_able {
 
 	 */
 	public Polynom(String s) {
+		if(s.startsWith("+"))
+			s = s.substring(1);
 		try {
 			this.monomsHash = new HashMap<Integer, Monom>();
 			int help = 0;
 			if(s.length() >= 2 && s.charAt(0) == '+') {
 				s = s.substring(1);
 			}
-			for (int i = 0; i < s.length(); i++) {  
+			for (int i = 0; i < s.length(); i++)
+			{  
 				if(i == s.length()-1)
 					this.add(new Monom((String) s.subSequence(help,i+1)));
 				if(s.charAt(i) == '+') {
@@ -225,9 +227,9 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public double area(double x0, double x1, double eps) {
-		if(x1 <= x0)
-			return 0.;
 		double area = 0.0;
+		if(x1 <= x0)
+			return area;
 		while(x0+eps <= x1) {
 			if(this.f(x0+eps)>0 && this.f(x0+eps)>0)
 				area += (eps * ( this.f(x0+eps) + this.f(x0+eps) ) / 2);
