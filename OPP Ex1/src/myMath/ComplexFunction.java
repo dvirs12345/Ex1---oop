@@ -3,19 +3,12 @@ package myMath;
 @SuppressWarnings("serial")
 public class ComplexFunction implements complex_function{
 	public static final ComplexFunction Zero = new ComplexFunction(Operation.None, Monom.ZERO, Monom.ZERO);
+	public static final ComplexFunction help1 = new ComplexFunction(Operation.Times, new Monom("1"), new Monom("1"));
 	private function left; 
 	private function right;
 	private Operation op;
 	
 	public static void main(String[] args){
-		ComplexFunction cf = new ComplexFunction();
-		ComplexFunction cf2 = new ComplexFunction();
-		ComplexFunction cf3 = new ComplexFunction();
-		String s = "plus(x,x+5)";
-		System.out.println(s.substring(0, 5).equals("plus(" ) && s.charAt(s.length()-1) == ')');
-		cf.initFromString("plus(x,x+5)");
-		System.out.println((cf.op == Operation.Plus));
-		System.out.println(cf.f(0));
 	}
 
 	public ComplexFunction(Operation op, function left, function right) {
@@ -23,8 +16,6 @@ public class ComplexFunction implements complex_function{
 		this.right = right;
 		this.op = op;
 	}
-	
-	public ComplexFunction() {;}
 	
 	public ComplexFunction(ComplexFunction f) {
 		this.left = f.left.copy();
@@ -56,9 +47,9 @@ public class ComplexFunction implements complex_function{
 	public boolean equals(Object cf) {
 		if( cf instanceof ComplexFunction ) {
 			boolean flag;
-			flag = (this.left == ((ComplexFunction) cf).left()) && (this.op == ((ComplexFunction) cf).getOp());
+			flag = (this.left.equals(((ComplexFunction) cf).left()) && (this.op.equals(((ComplexFunction) cf).getOp())));
 			if(flag && this.op != Operation.None ) {
-				flag = (flag && (this.right == ((ComplexFunction) cf).right()) );
+				flag = (flag && (this.right.equals(((ComplexFunction) cf).right()) ));
 			}
 			return flag;
 		} else {
@@ -85,7 +76,7 @@ public class ComplexFunction implements complex_function{
 		case None: 
 			return this.left.f(x);
 		default: 
-			return (Double) 0.; // TODO 
+			return 0.; // TODO 
 		}
 	}
 
@@ -97,8 +88,8 @@ public class ComplexFunction implements complex_function{
 				i--;
 			}
 		}
-		String[] opertors = {"plus","mul","div", "min", "max"};
-		Operation[] Opertors = {Operation.Plus,Operation.Times,Operation.Divid,Operation.Min,Operation.Max};
+		String[] opertors = {"plus","mul","div", "min", "max", "comp"};
+		Operation[] Opertors = {Operation.Plus,Operation.Times,Operation.Divid,Operation.Min,Operation.Max,Operation.Comp};
 		for (int j = 0; j < opertors.length; j++) {
 			if(s.length() >= opertors[j].length()+5 && s.substring(0, opertors[j].length()+1).equals(opertors[j]+"(" )
 					&& s.charAt(s.length()-1) == ')') {
@@ -109,16 +100,15 @@ public class ComplexFunction implements complex_function{
 					} else if (s.charAt(i) == ')') {
 						num-- ;
 					} else if (s.charAt(i) == ',' && num == 0) {
-						ComplexFunction cf = new ComplexFunction();
-						cf.left = cf.initFromString(s.substring(opertors[j].length()+1, i-1));
-						cf.right = cf.initFromString(s.substring(i+1, s.length()-1));
-						cf.op = Opertors[j];
+						ComplexFunction cf = new ComplexFunction( Opertors[j],
+								help1.initFromString(s.substring(opertors[j].length()+1, i)),
+								help1.initFromString(s.substring(i+1, s.length()-1)));
 						return cf;
 					}
 				}
 			}
 		}
-		return new Polynom(s);
+		return new ComplexFunction(Operation.None, new Polynom(s), help1);
 	}
 
 	@Override
