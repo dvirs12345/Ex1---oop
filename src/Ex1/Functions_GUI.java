@@ -1,9 +1,10 @@
-
+package Ex1;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 
 public class Functions_GUI implements functions {
 	private LinkedList<function> arr;
@@ -14,23 +15,12 @@ public class Functions_GUI implements functions {
 	
 	@Override
 	public boolean add(function arg0) {
-		try {
-			this.arr.add(arg0); 
-			return true;
-		}catch (Exception e) {
-			return false;
-		}
-		
+		return this.arr.add(arg0);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends function> arg0) {
-		try {
-			this.arr.addAll(arg0); 
-			return true;
-		}catch (Exception e) {
-			return false;
-		}
+		return this.arr.addAll(arg0); 
 	}
 
 	@Override
@@ -96,8 +86,11 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-		
+		Iterator<function> it = this.arr.iterator();
+		while (it.hasNext()) {
+			function function = it.next();
+			file += function.toString();
+		}
 	}
 
 	@Override

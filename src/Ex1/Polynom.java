@@ -39,13 +39,16 @@ public class Polynom implements Polynom_able {
 
 	 */
 	public Polynom(String s) {
+		if(s.startsWith("+"))
+			s = s.substring(1);
 		try {
 			this.monomsHash = new HashMap<Integer, Monom>();
 			int help = 0;
 			if(s.length() >= 2 && s.charAt(0) == '+') {
 				s = s.substring(1);
 			}
-			for (int i = 0; i < s.length(); i++) {  
+			for (int i = 0; i < s.length(); i++)
+			{  
 				if(i == s.length()-1)
 					this.add(new Monom((String) s.subSequence(help,i+1)));
 				if(s.charAt(i) == '+') {

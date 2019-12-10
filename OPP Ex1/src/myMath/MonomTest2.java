@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ public class MonomTest2 {
 	@Test
 	public void testGetComp() // Nothing really to test here
 	{
-		//TO DO
+		
 	}
 
 	@Test

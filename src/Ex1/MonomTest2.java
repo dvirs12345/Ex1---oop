@@ -9,7 +9,7 @@ public class MonomTest2 {
 	@Test
 	public void testGetComp() // Nothing really to test here
 	{
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -174,8 +174,15 @@ public class MonomTest2 {
 	}
 
 	@Test
-	public void testToString() {
-		fail("Not yet implemented");
+	public void testToString()
+	{
+		System.out.println("*****TestToString*****");
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		String[] ans = {"0", "2.0","x^2", "0","x","-x"};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].toString(), ans[i]);
+		}
 	}
 
 	@Test
@@ -222,7 +229,19 @@ public class MonomTest2 {
 	@Test
 	public void testEqualsObject()
 	{
-		
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x^0"),new Monom("-9x")};
+		for (int i = 0; i < toadd.length; i++)
+		{
+			if(ms[i].equals(toadd[i]))
+			{
+				assertEquals(ms[i], toadd[i]);
+			}
+			else 
+			{
+				assertNotEquals(ms[i], toadd[i]);
+			}
+		}
 	}
 
 }

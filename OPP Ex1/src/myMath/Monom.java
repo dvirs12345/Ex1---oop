@@ -1,6 +1,10 @@
-package myMath;
+
+package Ex1;
 
 import java.util.Comparator;
+
+import javax.management.RuntimeErrorException;
+
 /**
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 

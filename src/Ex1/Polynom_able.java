@@ -11,7 +11,7 @@ import java.util.Iterator;
  * 1. Init:
  * 1.1 Init(String), e.g., {"x", "3+1.4X^3-34x", "(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
  * 1.2 Init() // zero Polygon
- * 1.3 Polynom copy() // deep copy semantics
+ * 1.3 Polynom copy() //  deep copy semantics (from function interface!)
  * 
  * 2. Math:
  * 2.1 void multiply(Monom m) // multiply this Polygon by Monom m
@@ -64,18 +64,13 @@ public interface Polynom_able extends cont_function{
 	 * @param p1
 	 * @return true iff this polynom represents the same function as p1
 	 */
-	public boolean equals (Polynom_able p1);
+	public boolean equals (Object p1);
 	/**
 	 * Test if this is the Zero Polynom
 	 * @return
 	 */
 	public boolean isZero();
 	
-	/**
-	 * create a deep copy of this Polynom
-	 * @return 
-	 */
-	public Polynom_able copy();
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom
 	 * @return

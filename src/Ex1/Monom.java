@@ -3,6 +3,8 @@ package Ex1;
 
 import java.util.Comparator;
 
+import javax.management.RuntimeErrorException;
+
 /**
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 
@@ -75,7 +77,8 @@ public class Monom implements function{
 			throw new RuntimeException("Got null string: "+s);
 		if( s.length()==0 ) 
 			throw new RuntimeException("Got string without length: "+s);
-		
+		if(s == "-")
+			throw new RuntimeException("Got the illegal '-' please enter a valid monom next time. ");
 		int coefficientlength = 0;
 		double coefficient;
 		int power;
