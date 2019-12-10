@@ -133,9 +133,8 @@ public class Functions_GUI implements functions {
 			StdDraw.polygon(x, y);
 			j++;
 		}
-		
 	}
-	
+
 	public static void main(String[] args){
 		Functions_GUI fg = new Functions_GUI();
 		fg.add( new Polynom("X^2"));
