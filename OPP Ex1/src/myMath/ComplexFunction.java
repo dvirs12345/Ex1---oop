@@ -44,14 +44,31 @@ public class ComplexFunction implements complex_function{
 		}
 	}
 	
+	private boolean equalsInXRaenge(Object cf, double x1, double x2, double stepSise, double eps) {
+		if( cf instanceof ComplexFunction ) {
+			double min = Math.min(x1, x2);
+			double max = Math.max(x1, x2);
+			for (double i = min; i < max; i+=stepSise) {
+				if( Math.abs(((ComplexFunction) cf).f(i)- this.f(i)) > eps ) {
+					return false;
+				}
+			}
+			return true;
+		}else { 
+			return false;
+		}
+		
+	}
+	
 	public boolean equals(Object cf) {
 		if( cf instanceof ComplexFunction ) {
-			boolean flag;
-			flag = (this.left.equals(((ComplexFunction) cf).left()) && (this.op.equals(((ComplexFunction) cf).getOp())));
-			if(flag && this.op != Operation.None ) {
-				flag = (flag && (this.right.equals(((ComplexFunction) cf).right()) ));
-			}
-			return flag;
+//			boolean flag;
+//			flag = (this.left.equals(((ComplexFunction) cf).left()) && (this.op.equals(((ComplexFunction) cf).getOp())));
+//			if(flag && this.op != Operation.None ) {
+//				flag = (flag && (this.right.equals(((ComplexFunction) cf).right()) ));
+//			}
+//			return flag;
+			return equalsInXRaenge(cf, -5000, 5000, 0.02, 0.000001);
 		} else {
 			return false;
 		}
