@@ -1,7 +1,9 @@
 package myMath;
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -144,7 +146,7 @@ public class Functions_GUI implements functions {
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		Functions_GUI fg = new Functions_GUI();
 		fg.add( new Polynom("X^2"));
 		fg.add( new Polynom("X+3"));
@@ -155,8 +157,15 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
 		File Json = new File("GUI_params.txt");
-		String json = Json.toString();
-		fg.drawFunctions(json);
+		@SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(Json));
+		String st0 ="";
+		String stTemp;
+		while ((stTemp = br.readLine()) != null) {
+			st0 += stTemp;
+		}
+		System.out.println(st0);
+		fg.drawFunctions(st0);
 		String file = "";
 		try {
 			fg.saveToFile(file);
@@ -170,15 +179,27 @@ public class Functions_GUI implements functions {
 	@Override
 	public void drawFunctions(String json_file) {
 		Gson gson = new Gson();
-		gson.toJsonTree(json_file).getAsJsonObject();
-		int width = new Gson().fromJson("Width", int.class);
-		int height = new Gson().fromJson("Height", int.class);
-		int resolution = new Gson().fromJson("Resolution", int.class);
-		int[] Range_X = new Gson().fromJson("Range_X", int[].class);
-		int[] Range_Y = new Gson().fromJson("Range_Y", int[].class);
-		Range rx = new Range(Range_X[0], Range_X[1]);
-		Range ry = new Range(Range_Y[0], Range_Y[1]);
-		this.drawFunctions(width, height, rx, ry, resolution);
+		GUI_params params = gson.fromJson(json_file, GUI_params.class);
+		Range rx = new Range(params.Range_X[0], params.Range_X[1]);
+		Range ry = new Range(params.Range_Y[0], params.Range_Y[1]);
+//		System.out.println(params.Width+" "+params.Height+" "+rx+" "+ry+" "+params.Resolution);
+		this.drawFunctions(params.Width, params.Height, rx, ry, params.Resolution);
 	}
+	
+	private class GUI_params {
+		int Width;
+		int Height;
+		int Resolution;
+		int[] Range_X;
+		int[] Range_Y;
 		
+		@SuppressWarnings("unused")
+		public GUI_params(int width, int height, int resolution, int[] Range_X, int[] Range_Y) {
+			this.Width = width;
+			this.Height = height;
+			this.Resolution = resolution;
+			this.Range_X = Range_X;
+			this.Range_Y = Range_Y;
+		}
+	}
 }
