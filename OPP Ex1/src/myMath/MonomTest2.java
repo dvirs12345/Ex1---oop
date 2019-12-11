@@ -90,6 +90,7 @@ public class MonomTest2 {
 		}
 		try 
 		{
+			@SuppressWarnings("unused")
 			Monom m = new Monom("");
 			System.out.println("No Error in first");
 		}
@@ -100,6 +101,7 @@ public class MonomTest2 {
 	
 		try 
 		{
+			@SuppressWarnings("unused")
 			Monom m = new Monom("2^");
 			System.out.println("No Error in 2^");
 		}
@@ -110,6 +112,7 @@ public class MonomTest2 {
 		
 		try 
 		{
+			@SuppressWarnings("unused")
 			Monom m = new Monom("x^");
 			System.out.println("No Error in x^");
 		}
@@ -120,6 +123,7 @@ public class MonomTest2 {
 		
 		try 
 		{
+			@SuppressWarnings("unused")
 			Monom m = new Monom("^");
 			System.out.println("No Error in ^");
 		}
@@ -130,6 +134,7 @@ public class MonomTest2 {
 		
 		try 
 		{
+			@SuppressWarnings("unused")
 			Monom m = new Monom("^0");
 			System.out.println("No Error in ^0");
 		}

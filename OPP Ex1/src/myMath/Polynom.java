@@ -14,6 +14,7 @@ import java.util.TreeMap;
  * @author Eli Ruvinov
  *
  */
+@SuppressWarnings("serial")
 public class Polynom implements Polynom_able {
 	private HashMap <Integer, Monom> monomsHash;
 	/**
