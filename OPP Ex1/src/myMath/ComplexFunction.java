@@ -4,46 +4,52 @@ package myMath;
 public class ComplexFunction implements complex_function{
 	public static final ComplexFunction Zero = new ComplexFunction(Operation.None, Monom.ZERO, Monom.ZERO);
 	public static final ComplexFunction help1 = new ComplexFunction(Operation.Times, new Monom("1"), new Monom("1"));
+	private final double eps = 0.000001;
+	private final Range EqX_Range = new Range(-5000, 5000);
+	private final double EqStep = 0.02;
+
 	private function left; 
 	private function right;
 	private Operation op;
-	
-	public static void main(String[] args){
-	}
 
 	public ComplexFunction(Operation op, function left, function right) {
 		this.left = left;
 		this.right = right;
 		this.op = op;
 	}
-	
+
 	public ComplexFunction(ComplexFunction f) {
 		this.left = f.left.copy();
 		this.right = f.right.copy();
 		this.op = f.op;
 	}
-	
+
 	public String toString() {
-		switch (this.op){ 
-		case Plus: 
-			return "plus("+this.left.toString()+","+this.right.toString()+")"; 
-		case Times: 
-			return "mul("+this.left.toString()+","+this.right.toString()+")";
-		case Divid: 
-			return "div("+this.left.toString()+","+this.right.toString()+")";
-		case Max: 
-			return "max("+this.left.toString()+","+this.right.toString()+")";
-		case Min: 
-			return "min("+this.left.toString()+","+this.right.toString()+")";
-		case Comp: 
-			return "comp("+this.left.toString()+","+this.right.toString()+")";
-		case None: 
-			return this.left.toString();
-		default: 
-			return null; // TODO 
+		try {
+			switch (this.op){ 
+			case Plus: 
+				return "plus("+this.left.toString()+","+this.right.toString()+")"; 
+			case Times: 
+				return "mul("+this.left.toString()+","+this.right.toString()+")";
+			case Divid: 
+				return "div("+this.left.toString()+","+this.right.toString()+")";
+			case Max: 
+				return "max("+this.left.toString()+","+this.right.toString()+")";
+			case Min: 
+				return "min("+this.left.toString()+","+this.right.toString()+")";
+			case Comp: 
+				return "comp("+this.left.toString()+","+this.right.toString()+")";
+			case None: 
+				return this.left.toString();
+			default: 
+				return null;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("");	
 		}
 	}
-	
+
 	private boolean equalsInXRaenge(Object cf, double x1, double x2, double stepSise, double eps) {
 		if( cf instanceof ComplexFunction ) {
 			double min = Math.min(x1, x2);
@@ -57,18 +63,12 @@ public class ComplexFunction implements complex_function{
 		}else { 
 			return false;
 		}
-		
+
 	}
-	
+
 	public boolean equals(Object cf) {
 		if( cf instanceof ComplexFunction ) {
-//			boolean flag;
-//			flag = (this.left.equals(((ComplexFunction) cf).left()) && (this.op.equals(((ComplexFunction) cf).getOp())));
-//			if(flag && this.op != Operation.None ) {
-//				flag = (flag && (this.right.equals(((ComplexFunction) cf).right()) ));
-//			}
-//			return flag;
-			return equalsInXRaenge(cf, -5000, 5000, 0.02, 0.000001);
+			return equalsInXRaenge(cf, EqX_Range.get_min(), EqX_Range.get_max(), EqStep, eps);
 		} else {
 			return false;
 		}
@@ -77,23 +77,28 @@ public class ComplexFunction implements complex_function{
 	@SuppressWarnings("null")
 	@Override
 	public double f(double x) {
-		switch (this.op){ 
-		case Plus: 
-			return (this.left.f(x)+this.right.f(x)); 
-		case Times: 
-			return (this.left.f(x)*this.right.f(x));
-		case Divid: 
-			return (this.left.f(x)/this.right.f(x));
-		case Max: 
-			return Math.max(this.left.f(x),this.right.f(x));
-		case Min: 
-			return Math.min(this.left.f(x),this.right.f(x));
-		case Comp: 
-			return (this.left.f(this.right.f(x)));
-		case None: 
-			return this.left.f(x);
-		default: 
-			return 0.; // TODO 
+		try {
+			switch (this.op){ 
+			case Plus: 
+				return (this.left.f(x)+this.right.f(x)); 
+			case Times: 
+				return (this.left.f(x)*this.right.f(x));
+			case Divid: 
+				return (this.left.f(x)/this.right.f(x));
+			case Max: 
+				return Math.max(this.left.f(x),this.right.f(x));
+			case Min: 
+				return Math.min(this.left.f(x),this.right.f(x));
+			case Comp: 
+				return (this.left.f(this.right.f(x)));
+			case None: 
+				return this.left.f(x);
+			default: 
+				return (Double) null; 
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("");	
 		}
 	}
 
