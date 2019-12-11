@@ -124,13 +124,14 @@ public class Functions_GUI implements functions {
 		while (it.hasNext()) {
 			StdDraw.setPenColor(colors[j%colors.length]);
 			function f = it.next();
-			double[] x = new double[width*resolution];
-			double[] y = new double[width*resolution];
-			for (int i = 0; i < width*resolution ; i++) {
-				x[i] = rx.get_min() +i*(rx.get_max()-rx.get_min())/(width*resolution);
+			double[] x = new double[resolution];
+			double[] y = new double[resolution];
+			for (int i = 0; i < resolution; i++) {
+				x[i] = rx.get_min() + i*(rx.get_max()-rx.get_min())/(resolution);
 				y[i] = f.f(x[i]);
+				if(i>0)
+					StdDraw.line(x[i-1], y[i-1], x[i], y[i]);
 			}
-			StdDraw.polygon(x, y);
 			j++;
 		}
 	}
@@ -145,13 +146,14 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("-0.5x"));
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
-		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 300);
+		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
 		// TODO Auto-generated method stub
-		
+		Gson c = new Gson();
+		 
 	}
 
 }
