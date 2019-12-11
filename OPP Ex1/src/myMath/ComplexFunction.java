@@ -12,6 +12,13 @@ public class ComplexFunction implements complex_function{
 	private function right;
 	private Operation op;
 
+	public ComplexFunction(String cf) {
+		ComplexFunction cfTemp = (ComplexFunction) help1.initFromString(cf);
+		this.left = cfTemp.left;
+		this.right = cfTemp.right;
+		this.op = cfTemp.op;
+	}
+	
 	public ComplexFunction(String op, function left, function right) {
 		String[] opertors = {"plus","mul","div", "min", "max", "comp"};
 		Operation[] Opertors = {Operation.Plus,Operation.Times,Operation.Divid,Operation.Min,Operation.Max,Operation.Comp};

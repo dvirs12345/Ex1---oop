@@ -184,28 +184,6 @@ public class Functions_GUI implements functions {
 		}
 	}
 
-	public static void main(String[] args) throws IOException{
-		Functions_GUI fg0 = new Functions_GUI();
-		fg0.initFromFile("function_file.txt");
-		Functions_GUI fg = new Functions_GUI();
-		fg.add( new Polynom("X^2"));
-		fg.add( new Polynom("X+3"));
-		fg.add( new Polynom("3"));
-		fg.add( new Polynom("-x+1"));
-		fg.add( new Polynom("X"));
-		fg.add( new Polynom("-0.5x"));
-		fg.add( new Polynom("X^3"));
-		fg.add( new Sinus(new Polynom("5X+1")));
-//		fg.drawFunctions("GUI_params.txt");
-		String file = "out.txt";
-		try {
-			fg.saveToFile(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-//		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
-	}
-
 	@Override
 	public void drawFunctions(String json_file) {
 		File Json = new File(json_file);
@@ -246,5 +224,27 @@ public class Functions_GUI implements functions {
 			this.Range_X = Range_X;
 			this.Range_Y = Range_Y;
 		}
+	}
+
+	public static void main(String[] args) throws IOException{
+		Functions_GUI fg0 = new Functions_GUI();
+		fg0.initFromFile("function_file.txt");
+		Functions_GUI fg = new Functions_GUI();
+		fg.add( new Polynom("X^2"));
+		fg.add( new Polynom("X+3"));
+		fg.add( new Polynom("3"));
+		fg.add( new Polynom("-x+1"));
+		fg.add( new Polynom("X"));
+		fg.add( new Polynom("-0.5x"));
+		fg.add( new Polynom("X^3"));
+		fg.add( new Sinus(new Polynom("5X+1")));
+		fg.drawFunctions("GUI_params.txt");
+		String file = "out.txt";
+		try {
+			fg.saveToFile(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
 	}
 }
