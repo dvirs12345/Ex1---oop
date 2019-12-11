@@ -3,6 +3,7 @@ package myMath;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
@@ -120,6 +121,16 @@ public class Functions_GUI implements functions {
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.setXscale(rx.get_min(),rx.get_max());
 		StdDraw.setYscale(ry.get_min(),ry.get_max());
+		StdDraw.setPenRadius(0.002);
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
+		for (int i = (int) rx.get_min(); i < rx.get_max()+1 ; i++) {
+			StdDraw.text(i, -0.25, ""+i);
+		}
+		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
+		for (int i = (int) ry.get_min(); i < ry.get_max()+1 ; i++) {
+			StdDraw.text(-0.25,i , ""+i);
+		}
 		StdDraw.setPenRadius(0.0001);
 		StdDraw.setFont();
 		for (int i = (int) rx.get_min(); i < rx.get_max(); i+=((rx.get_max()-rx.get_min())/20)) {
@@ -156,16 +167,7 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("-0.5x"));
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
-		File Json = new File("GUI_params.txt");
-		@SuppressWarnings("resource")
-		BufferedReader br = new BufferedReader(new FileReader(Json));
-		String st0 ="";
-		String stTemp;
-		while ((stTemp = br.readLine()) != null) {
-			st0 += stTemp;
-		}
-		System.out.println(st0);
-		fg.drawFunctions(st0);
+		fg.drawFunctions("GUI_params.txt");
 		String file = "";
 		try {
 			fg.saveToFile(file);
@@ -178,11 +180,26 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(String json_file) {
+		File Json = new File(json_file);
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(Json));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		String st0 ="";
+		String stTemp;
+		try {
+			while ((stTemp = br.readLine()) != null) {
+				st0 += stTemp;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Gson gson = new Gson();
-		GUI_params params = gson.fromJson(json_file, GUI_params.class);
+		GUI_params params = gson.fromJson(st0, GUI_params.class);
 		Range rx = new Range(params.Range_X[0], params.Range_X[1]);
 		Range ry = new Range(params.Range_Y[0], params.Range_Y[1]);
-//		System.out.println(params.Width+" "+params.Height+" "+rx+" "+ry+" "+params.Resolution);
 		this.drawFunctions(params.Width, params.Height, rx, ry, params.Resolution);
 	}
 	

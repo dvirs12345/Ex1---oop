@@ -831,7 +831,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		penRadius = radius;
 		float scaledPenRadius = (float) (radius * DEFAULT_SIZE);
 		BasicStroke stroke = new BasicStroke(scaledPenRadius, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-		// BasicStroke stroke = new BasicStroke(scaledPenRadius);
+//		 BasicStroke stroke = new BasicStroke(scaledPenRadius);
 		offscreen.setStroke(stroke);
 	}
 

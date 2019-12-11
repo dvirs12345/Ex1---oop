@@ -12,10 +12,32 @@ public class ComplexFunction implements complex_function{
 	private function right;
 	private Operation op;
 
+	public ComplexFunction(String op, function left, function right) {
+		String[] opertors = {"plus","mul","div", "min", "max", "comp"};
+		Operation[] Opertors = {Operation.Plus,Operation.Times,Operation.Divid,Operation.Min,Operation.Max,Operation.Comp};
+		this.left = left;
+		this.right = right;
+		boolean flag = true;
+		for (int i = 0; i < Opertors.length; i++) {
+			if(op.equals(opertors[i])) {
+				this.op = Opertors[i];
+				flag = false;
+			}
+		}
+		if(flag)
+			throw new RuntimeException("");
+	}
+	
 	public ComplexFunction(Operation op, function left, function right) {
 		this.left = left;
 		this.right = right;
 		this.op = op;
+	}
+	
+	public ComplexFunction( function left) {
+		this.left = left;
+		this.right = help1;
+		this.op = Operation.None;
 	}
 
 	public ComplexFunction(ComplexFunction f) {

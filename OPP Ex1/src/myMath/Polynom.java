@@ -39,6 +39,7 @@ public class Polynom implements Polynom_able {
 
 	 */
 	public Polynom(String s) {
+		s = s.replace(" ", "");
 		if(s.startsWith("+"))
 			s = s.substring(1);
 		try {
