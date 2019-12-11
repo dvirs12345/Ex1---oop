@@ -1,6 +1,7 @@
 package myMath;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -153,6 +154,9 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("-0.5x"));
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
+		File Json = new File("GUI_params.txt");
+		String json = Json.toString();
+		fg.drawFunctions(json);
 		String file = "";
 		try {
 			fg.saveToFile(file);
@@ -165,11 +169,15 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(String json_file) {
+		Gson gson = new Gson();
+		gson.toJsonTree(json_file).getAsJsonObject();
 		int width = new Gson().fromJson("Width", int.class);
 		int height = new Gson().fromJson("Height", int.class);
 		int resolution = new Gson().fromJson("Resolution", int.class);
-		Range rx = new Gson().fromJson("Range_X", Range.class);
-		Range ry = new Gson().fromJson("Range_Y", Range.class);
+		int[] Range_X = new Gson().fromJson("Range_X", int[].class);
+		int[] Range_Y = new Gson().fromJson("Range_Y", int[].class);
+		Range rx = new Range(Range_X[0], Range_X[1]);
+		Range ry = new Range(Range_Y[0], Range_Y[1]);
 		this.drawFunctions(width, height, rx, ry, resolution);
 	}
 		
