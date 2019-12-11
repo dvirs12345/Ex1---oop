@@ -5,7 +5,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -96,21 +98,46 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void initFromFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-		
+		File OutputFile = new File(file);
+		BufferedReader br = new BufferedReader(new FileReader(OutputFile) );
+		String stTemp;
+		while ((stTemp = br.readLine()) != null) {
+			String row = stTemp;
+			ComplexFunction cf = (ComplexFunction) ComplexFunction.help1.initFromString(row);
+			cf.initFromString(row);
+			this.add(cf);
+		}
+		br.close();
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
 		try {
-			file = "";
+			File OutputFile = new File(file);
+			OutputFile.createNewFile();
+			FileWriter fw = new FileWriter(OutputFile);
+			PrintWriter pw = new PrintWriter(fw);
+			String st = "";
 			Iterator<function> it = this.arr.iterator();
+			int cont = 0;
 			while (it.hasNext()) {
+				st += cont+") "+colors[cont%colors.length].toString()+" f(x)= ";
 				function function = it.next();
-				file += (function.toString());
+				st += (function.toString());
 				if(it.hasNext())
-					file += "\n";
+					st += "\n";
+				cont++;
 			}
+			pw.println( st);
+			pw.close();
+			BufferedReader br = new BufferedReader(new FileReader(OutputFile) );
+			String stTemp;
+			while ((stTemp = br.readLine()) != null) {
+				System.out.println(stTemp);
+			}
+			pw.println(st);
+			pw.close();
+			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,6 +185,8 @@ public class Functions_GUI implements functions {
 	}
 
 	public static void main(String[] args) throws IOException{
+		Functions_GUI fg0 = new Functions_GUI();
+		fg0.initFromFile("function_file.txt");
 		Functions_GUI fg = new Functions_GUI();
 		fg.add( new Polynom("X^2"));
 		fg.add( new Polynom("X+3"));
@@ -167,15 +196,14 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("-0.5x"));
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
-		fg.drawFunctions("GUI_params.txt");
-		String file = "";
+//		fg.drawFunctions("GUI_params.txt");
+		String file = "out.txt";
 		try {
 			fg.saveToFile(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(file);
-		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
+//		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
 	}
 
 	@Override
