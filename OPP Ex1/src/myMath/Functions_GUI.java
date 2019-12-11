@@ -1,7 +1,11 @@
 package myMath;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +13,17 @@ import com.google.gson.*;
 
 public class Functions_GUI implements functions {
 	private LinkedList<function> arr;
+	private Color[] colors = { 
+			Color.BLUE,
+			Color.CYAN,
+			Color.GREEN,
+			Color.ORANGE,
+			Color.MAGENTA,
+			Color.PINK,
+			Color.RED,
+			Color.YELLOW
+	};
+	
 	
 	public Functions_GUI() {
 		this.arr = new LinkedList<function>();
@@ -87,16 +102,22 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void saveToFile(String file) throws IOException {
-		Iterator<function> it = this.arr.iterator();
-		while (it.hasNext()) {
-			function function = it.next();
-			file += function.toString()+"\n";
+		try {
+			file = "";
+			Iterator<function> it = this.arr.iterator();
+			while (it.hasNext()) {
+				function function = it.next();
+				file += (function.toString());
+				if(it.hasNext())
+					file += "\n";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		// TODO Auto-generated method stub
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.setXscale(rx.get_min(),rx.get_max());
 		StdDraw.setYscale(ry.get_min(),ry.get_max());
@@ -110,16 +131,6 @@ public class Functions_GUI implements functions {
 		}
 		StdDraw.setPenRadius(0.002);
 		Iterator<function> it = this.arr.iterator();
-		Color[] colors = { 
-				Color.BLUE,
-				Color.CYAN,
-				Color.GREEN,
-				Color.ORANGE,
-				Color.MAGENTA,
-				Color.PINK,
-				Color.RED,
-				Color.YELLOW
-		};
 		int j = 0;
 		while (it.hasNext()) {
 			StdDraw.setPenColor(colors[j%colors.length]);
@@ -129,7 +140,7 @@ public class Functions_GUI implements functions {
 			for (int i = 0; i < resolution; i++) {
 				x[i] = rx.get_min() + i*(rx.get_max()-rx.get_min())/(resolution);
 				y[i] = f.f(x[i]);
-				if(i>0)
+				if(i>0 && ( ry.isIn(y[i-1]) || ry.isIn(y[i])))
 					StdDraw.line(x[i-1], y[i-1], x[i], y[i]);
 			}
 			j++;
@@ -146,14 +157,24 @@ public class Functions_GUI implements functions {
 		fg.add( new Polynom("-0.5x"));
 		fg.add( new Polynom("X^3"));
 		fg.add( new Sinus(new Polynom("5X+1")));
+		String file = "";
+		try {
+			fg.saveToFile(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(file);
 		fg.drawFunctions(1200, 600, new Range(-9, 11), new Range(-3, 7), 800);
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
-		Gson c = new Gson();
-		 
+		int width = new Gson().fromJson("Width", int.class);
+		int height = new Gson().fromJson("Height", int.class);
+		int resolution = new Gson().fromJson("Resolution", int.class);
+		Range rx = new Gson().fromJson("Range_X", Range.class);
+		Range ry = new Gson().fromJson("Range_Y", Range.class);
+		this.drawFunctions(width, height, rx, ry, resolution);
 	}
-
+		
 }
