@@ -11,11 +11,22 @@ class ComplexFunctionTest {
 	@Test
 	void testEquals() {
 		ComplexFunction cf = new ComplexFunction(Operation.Plus, new Polynom("x"), new Polynom("1"));
-		ComplexFunction cf2 = new ComplexFunction(Operation.Plus, new Polynom("x"), new Polynom("1"));
+		ComplexFunction cf2 = new ComplexFunction(Operation.Plus, new Polynom("x"), new Monom("1"));
+		ComplexFunction cf3 = new ComplexFunction(Operation.Times, new Polynom("x+1"), ComplexFunction.help1.copy());
+		ComplexFunction cf4 = new ComplexFunction(Operation.Times, new Polynom("x+1"), new Polynom("10"));
+		cf4.div(new Polynom("10"));
 		assertEquals(cf, cf2);
+		assertEquals(cf, cf3);
+		assertEquals(cf, cf4);
+		assertEquals(cf2, cf3);
+		assertEquals(cf2, cf4);
+		assertEquals(cf3, cf4);
 		assertEquals(cf, cf.copy());
 		assertEquals(cf, new ComplexFunction(cf.getOp(), cf.left(), cf.right()));
+		ComplexFunction cf5 = new ComplexFunction(Operation.Plus, new Polynom("x"), new Polynom("1"));
+		ComplexFunction cf6 = new ComplexFunction(Operation.Times, new Polynom("x+1"), new ComplexFunction("div(1-x,1-x)"));
 		assertNotEquals(cf, ComplexFunction.Zero);
+		assertNotEquals(cf5, cf6);
 	}
 	
 	@Test
@@ -54,7 +65,7 @@ class ComplexFunctionTest {
 		
 		for (int i = 0; i < s.length; i++) {
 			ComplexFunction cf = (ComplexFunction) ComplexFunction.help1.initFromString(s[i]);
-			assertEquals( CFArray[i], cf); // ***************************
+			assertEquals( CFArray[i], cf); 
 			assertNotEquals(cf, CFArray[(i+1)%CFArray.length]);
 		}
 		

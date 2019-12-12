@@ -6,7 +6,7 @@ public class ComplexFunction implements complex_function{
 	public static final ComplexFunction help1 = new ComplexFunction(Operation.Times, new Monom("1"), new Monom("1"));
 	private final double eps = 0.000001;
 	private final Range EqX_Range = new Range(-5000, 5000);
-	private final double EqStep = 0.02;
+	private final double EqStep = 0.01;
 
 	private function left; 
 	private function right;
@@ -79,10 +79,10 @@ public class ComplexFunction implements complex_function{
 		}
 	}
 
-	private boolean equalsInXRaenge(Object cf, double x1, double x2, double stepSise, double eps) {
+	private boolean equalsInXRange(Object cf, Range X_Range, double stepSise, double eps) {
 		if( cf instanceof ComplexFunction ) {
-			double min = Math.min(x1, x2);
-			double max = Math.max(x1, x2);
+			double min = X_Range.get_min();
+			double max = X_Range.get_max();
 			for (double i = min; i < max; i+=stepSise) {
 				if( Math.abs(((ComplexFunction) cf).f(i)- this.f(i)) > eps ) {
 					return false;
@@ -97,7 +97,7 @@ public class ComplexFunction implements complex_function{
 
 	public boolean equals(Object cf) {
 		if( cf instanceof ComplexFunction ) {
-			return equalsInXRaenge(cf, EqX_Range.get_min(), EqX_Range.get_max(), EqStep, eps);
+			return equalsInXRange(cf, EqX_Range, EqStep, eps);
 		} else {
 			return false;
 		}

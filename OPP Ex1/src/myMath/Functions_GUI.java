@@ -3,7 +3,6 @@ package myMath;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -188,25 +187,25 @@ public class Functions_GUI implements functions {
 	public void drawFunctions(String json_file) {
 		File Json = new File(json_file);
 		BufferedReader br = null;
+		String st0 ="";
 		try {
 			br = new BufferedReader(new FileReader(Json));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		String st0 ="";
-		String stTemp;
-		try {
+			st0 ="";
+			String stTemp;
 			while ((stTemp = br.readLine()) != null) {
 				st0 += stTemp;
 			}
+			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		Gson gson = new Gson();
 		GUI_params params = gson.fromJson(st0, GUI_params.class);
 		Range rx = new Range(params.Range_X[0], params.Range_X[1]);
 		Range ry = new Range(params.Range_Y[0], params.Range_Y[1]);
 		this.drawFunctions(params.Width, params.Height, rx, ry, params.Resolution);
+		
 	}
 	
 	private class GUI_params {
@@ -232,6 +231,7 @@ public class Functions_GUI implements functions {
 		Functions_GUI fg = new Functions_GUI();
 		fg.add( new Polynom("X^2"));
 		fg.add( new ComplexFunction("div(1,x)"));
+		fg.add( new ComplexFunction("mul(x+1,div(x,x))"));
 		fg.add( new Polynom("3"));
 		fg.add( new Polynom("X"));
 		fg.add( new Polynom("-0.5x"));
@@ -243,6 +243,7 @@ public class Functions_GUI implements functions {
 			fg.saveToFile(file);
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		fg.drawFunctions(1000, 600, new Range(-10,10), new Range(-5,15), 800);
 	}
