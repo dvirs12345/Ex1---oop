@@ -1,78 +1,252 @@
 package myMath;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-import java.util.ArrayList;
-/**
- * This class represents a simple (naive) tester for the Monom class, 
- * Note: <br>
- * (i) The class is NOT a JUNIT - (i.e., educational reasons) - should be changed to a proper JUnit in Ex1. <br>
- * (ii) This tester should be extend in order to test ALL the methods and functionality of the Monom class.  <br>
- * (iii) Expected output:  <br>
- * *****  Test1:  *****  <br>
-0) 2.0       	isZero: false	 f(0) = 2.0  <br>
-1) -1.0x    	isZero: false	 f(1) = -1.0  <br>
-2) -3.2x^2    	isZero: false	 f(2) = -12.8  <br>
-3) 0    	    isZero: true	 f(3) = 0.0  <br>
 
-*****  Test2:  *****  <br>
-0) 0    	    isZero: true  	eq: true  <br>
-1) -1.0     	isZero: false  	eq: true  <br>
-2) -1.3x    	isZero: false  	eq: true  <br>
-3) -2.2x^2    	isZero: false  	eq: true  <br>
- */
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 public class MonomTest {
-	public static void main(String[] args) {
-		test1();
-		test2();
-		test3();
-		test4();
-	}
-	private static void test1() {
-		System.out.println("*****  Test1:  *****");
-		String[] monoms = {"2", "-x","-3.2x^2","0"};
-		for(int i=0;i<monoms.length;i++) {
-			Monom m = new Monom(monoms[i]);
-			String s = m.toString();
-			m = new Monom(s);
-			double fx = m.f(i);
-			System.out.println(i+") "+m +"    \tisZero: "+m.isZero()+"\t f("+i+") = "+fx);
-		}
-	}
-	private static void test2() {
-		System.out.println("\n*****  Test2:  *****");
-		ArrayList<Monom> monoms = new ArrayList<Monom>();
-		monoms.add(new Monom(0,5));
-		monoms.add(new Monom(-1,0));
-		monoms.add(new Monom(-1.3,1));
-		monoms.add(new Monom(-2.2,2));
+
+	@Test
+	public void testGetComp() // Nothing really to test here
+	{
 		
-		for(int i=0;i<monoms.size();i++) {
-			Monom m = new Monom(monoms.get(i));
-			String s = m.toString();
-			Monom m1 = new Monom(s);
-			boolean e = m.equals(m1);
-			System.out.println(i+") "+m +"    \tisZero: "+m.isZero()+"  \teq: "+e);
+	}
+
+	@Test
+	public void testMonomDoubleInt() 
+	{ 
+		Monom m = new Monom(0.5,2);
+		assertEquals(0.5, m.get_coefficient(), 0.0001);
+		assertEquals(2, m.get_power());
+	}
+
+	@Test
+	public void testMonomMonom() 
+	{
+		Monom m = new Monom(0.5,2);
+		Monom mcopy = new Monom(m);
+		assertEquals(m, mcopy);
+	}
+
+	@Test
+	public void testGet_coefficient()
+	{
+		Monom m = new Monom(0.5,2);
+		assertEquals(m.get_coefficient(), 0.5,0.0001);
+	}
+
+	@Test
+	public void testGet_power()
+	{
+		Monom m = new Monom(0.5,2);
+		assertEquals(m.get_power(), 2,0.0001);
+	}
+
+	@Test
+	public void testDerivative()
+	{
+		Monom[] ms = {new Monom("2x^2"), new Monom("2"), new Monom("7x"),new Monom("-x")};
+		Monom[] ans = {new Monom("4x"),new Monom("0"),new Monom("7"),new Monom("-1")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].derivative(), ans[i]);
 		}
 	}
-	private static void test3() {
-		System.out.println("\n*****  Test3:  *****");
-		String[] monoms = {"2", "-x","-3.2x^2","23X^101"};
-		for(int i=0;i<monoms.length;i++) {
-			Monom m = new Monom(monoms[i]);
-			System.out.println("m(x) is: "+m);
-			m = m.derivative();
-			System.out.println("m'(x) is: "+m);
-			m = m.derivative();
-			System.out.println("m''(x) is: "+m);
+
+	@Test
+	public void testF() 
+	{
+		Monom[] ms = {new Monom("2x^2"), new Monom("2"), new Monom("7x"),new Monom("-x")};
+		double[] points = {0,6,2,7};
+		double[] ans = {0,2,14,-7};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].f(points[i]), ans[i], 0.0001);
 		}
 	}
-	private static void test4() {
-		System.out.println("\n*****  Test4:  *****");
-		Monom m = new Monom(1,1);
-		Monom m2 = new Monom(1.0000001,1);
-		Monom m3 = new Monom(0.9999999,1);
-		System.out.print(m+" == "+m2+" && "+m+" == "+m3+" : ");
-		System.out.println(m.equals(m2) && m.equals(m3));
-		System.out.println(m2+" != "+m3+" : "+m2.equals(m3));
+
+	@Test
+	public void testIsZero() 
+	{
+		Monom[] ms= {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0")};
+		boolean[] ans = {true,false,false,true,false};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].isZero(), ans[i]);
+		}
 	}
+
+	@Test
+	public void testMonomString() 
+	{
+		System.out.println("*****TestMonomString*****");
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
+		double[] anscoef = {0,2,1,0,1,-1};
+		int[] anspow = {0,0,2,0,0,1};
+		for (int i = 0; i < anscoef.length; i++)
+		{
+			assertEquals(ms[i].get_coefficient(), anscoef[i],0.0001);
+			assertEquals(ms[i].get_power(), anspow[i]);
+		}
+		try 
+		{
+			@SuppressWarnings("unused")
+			Monom m = new Monom("");
+			System.out.println("No Error in first");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in first");
+		}
+	
+		try 
+		{
+			@SuppressWarnings("unused")
+			Monom m = new Monom("2^");
+			System.out.println("No Error in 2^");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in 2^");
+		}
+		
+		try 
+		{
+			@SuppressWarnings("unused")
+			Monom m = new Monom("x^");
+			System.out.println("No Error in x^");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in x^");
+		} 
+		
+		try 
+		{
+			@SuppressWarnings("unused")
+			Monom m = new Monom("^");
+			System.out.println("No Error in ^");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in ^");
+		} 
+		
+		try 
+		{
+			@SuppressWarnings("unused")
+			Monom m = new Monom("^0");
+			System.out.println("No Error in ^0");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in ^0");
+		} 
+		
+		try 
+		{
+			Monom m = new Monom("-");
+			System.out.println("Coefficient = "+m.get_coefficient());
+			System.out.println("Power = "+m.get_power());
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error in -");
+		} 
+	}
+
+	@Test
+	public void testAdd()
+	{
+		System.out.println("*****TestAdd*****");
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x^0"),new Monom("-9x")};
+		Monom[] ans = {new Monom("2"), new Monom("4"),new Monom("10x^2"), new Monom("0"),new Monom("2x^0"),new Monom("-10x")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			ms[i].add(toadd[i]);
+			assertEquals(ms[i], ans[i]);
+		}
+		try 
+		{
+			ms[0].add(toadd[2]);
+			System.out.println("No Error (Bad)");
+		}
+		catch(RuntimeException e) 
+		{
+			System.out.println("Error when trying to add Monoms with non equal powers" );
+		}
+	}
+
+	@Test
+	public void testToString()
+	{
+		System.out.println("*****TestToString*****");
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		String[] ans = {"0", "2.0","x^2", "0","x","-x"};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].toString(), ans[i]);
+		}
+	}
+
+	@Test
+	public void testMultiply() 
+	{
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x"),new Monom("-9x")};
+		Monom[] ans = {new Monom("0"), new Monom("4"),new Monom("9x^4"), new Monom("0"),new Monom("x^2"),new Monom("9x^2")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			ms[i].multiply(toadd[i]);
+			assertEquals(ms[i], ans[i]);
+		}
+	}
+
+	@Test
+	public void testMultiplyAndReturn()
+	{
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x"),new Monom("-9x")};
+		Monom[] ans = {new Monom("0"), new Monom("4"),new Monom("9x^4"), new Monom("0"),new Monom("x^2"),new Monom("9x^2")};
+		for (int i = 0; i < ans.length; i++)
+		{
+			assertEquals(ms[i].multiplyAndReturn(toadd[i]), ans[i]);
+		}
+	}
+
+	@Test
+	public void testInitFromString()
+	{
+		Monom m = new Monom("5x");
+		function f = m.initFromString(m.toString());
+		assertEquals(m, f);
+	}
+
+	@Test
+	public void testCopy()
+	{
+		Monom m = new Monom("2x^2");
+		function f = m.copy();
+		assertEquals(m, f);
+	}
+
+	@Test
+	public void testEqualsObject()
+	{
+		Monom[] ms = {new Monom("0x^2"), new Monom("2"),new Monom("x^2"), new Monom("0"),new Monom("x^0"),new Monom("-x")};
+		Monom[] toadd = {new Monom("2"), new Monom("2"),new Monom("9x^2"), new Monom("0"),new Monom("x^0"),new Monom("-9x")};
+		for (int i = 0; i < toadd.length; i++)
+		{
+			if(ms[i].equals(toadd[i]))
+			{
+				assertEquals(ms[i], toadd[i]);
+			}
+			else 
+			{
+				assertNotEquals(ms[i], toadd[i]);
+			}
+		}
+	}
+
 }
