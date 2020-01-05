@@ -1,4 +1,4 @@
-package myMath;
+package Ex1Testing;
 
 import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;

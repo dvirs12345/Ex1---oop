@@ -1,4 +1,4 @@
-package myMath;
+package Ex1Testing;
 
 import static org.junit.Assert.*;
 

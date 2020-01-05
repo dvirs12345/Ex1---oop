@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 @SuppressWarnings("serial")
 public class ComplexFunction implements complex_function{
@@ -144,7 +144,7 @@ public class ComplexFunction implements complex_function{
 		for (int j = 0; j < opertors.length; j++) {
 			if(s.length() >= opertors[j].length()+5 && s.substring(0, opertors[j].length()+1).equals(opertors[j]+"(" )
 					&& s.charAt(s.length()-1) == ')') {
-				int num = 0; // the number of open () מספר הסוגריים הפתוחים.
+				int num = 0; // the number of open ()
 				for(int i = opertors[j].length()+1; i<s.length()-2; i++) {
 					if (s.charAt(i) == '(') {
 						num++ ;

@@ -1,4 +1,4 @@
-package myMath;
+package Ex1Testing;
 
 import java.io.IOException;
 import org.junit.jupiter.api.AfterAll;

@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 /**
  * This class represents a simple sin(x) function (actually sin(f(x))).
